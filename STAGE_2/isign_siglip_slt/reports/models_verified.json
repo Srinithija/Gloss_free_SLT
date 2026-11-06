@@ -1,0 +1,57 @@
+{
+ "siglip": {
+  "repo": "google/siglip-base-patch16-224",
+  "revision": "7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed",
+  "params": 92884224,
+  "image_mean": [
+   0.5,
+   0.5,
+   0.5
+  ],
+  "image_std": [
+   0.5,
+   0.5,
+   0.5
+  ],
+  "pooled_dim": 768,
+  "unused_checkpoint_keys": 200,
+  "forward_ok": true,
+  "pooler_shape": [
+   4,
+   768
+  ]
+ },
+ "clip": {
+  "repo": "openai/clip-vit-base-patch16",
+  "revision": "57c216476eefef5ab752ec549e440a49ae4ae5f3",
+  "params": 85799424,
+  "image_mean": [
+   0.48145466,
+   0.4578275,
+   0.40821073
+  ],
+  "image_std": [
+   0.26862954,
+   0.26130258,
+   0.27577711
+  ],
+  "pooled_dim": 768,
+  "unused_checkpoint_keys": 200,
+  "forward_ok": true,
+  "pooler_shape": [
+   4,
+   768
+  ]
+ },
+ "mbart": {
+  "repo": "facebook/mbart-large-cc25",
+  "revision": "f417e5563320b2cc8aabe4329d986b238809067f",
+  "params": 610851840,
+  "vocab": 250027,
+  "en_XX_id": 250004,
+  "default_generation_num_beams": 5,
+  "forward_ok": true,
+  "missing_keys": []
+ },
+ "peak_vram_GiB": 3.43
+}

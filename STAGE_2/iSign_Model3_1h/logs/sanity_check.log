@@ -1,0 +1,11 @@
+tokenizer src/tgt lang: en_XX en_XX
+MAP -3GZr4gY8Is--0 -> [caption omitted]
+MAP -3GZr4gY8Is--1 -> [caption omitted]
+MAP -3GZr4gY8Is--10 -> [caption omitted]
+MAP -3GZr4gY8Is--11 -> [caption omitted]
+batch vis (8, 30, 768) lm (8, 30, 204) mask (8, 30) labels (8, 22) dec_in (8, 22) vis finite True lm finite True vis std 0.5249993205070496
+SHAPES {"lm_proj": [8, 30, 256], "conv": [8, 1024, 30], "bn": [8, 1024, 30], "pool": [8, 1024, 15], "proj": [8, 15, 1024], "mbart.model.encoder": [8, 15, 1024], "mbart.model.decoder": [8, 22, 1024], "mbart.lm_head": [8, 22, 19551]}
+loss 13.287129402160645 finite True nonzero True
+GRAD NORMS {"lm_proj": 14.854658126831055, "conv": 69.27710723876953, "bn": 1.8507283926010132, "proj": 70.91738891601562, "mbart.model.encoder": 69.88195037841797, "mbart.model.decoder": 63.68288040161133, "mbart.model.shared": 27.513227462768555}
+params updated: 149/149 tensors; trainable params 116,658,944 (SigLIP is not part of the model: features are precomputed by the frozen encoder)
+generate ids shape (2, 21) decoded: ['the the the the the the the the the the the the the the the the the the', 'the the the the the the the the the the the the the the the the the the']

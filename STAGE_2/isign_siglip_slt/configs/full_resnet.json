@@ -1,0 +1,7 @@
+{"name": "full_resnet", "train_manifest": "manifests/full_extract_trdev.csv", "dev_manifest": "manifests/subset2k_dev.csv",
+ "T": 32, "frame_keep_min": 0.8, "keyframes": "manifests/keyframes_K32.json", "n_views": 1, "batch_size": 32,
+ "epochs": 12, "patience": 3, "warmup_steps": 1000, "num_workers": 2,
+ "use_visual": true, "use_landmarks": false, "n_layers": 3,
+ "vis_kind": "keyframe_view", "vis_dim": 512,
+ "vis_cache_train": ["D:/iSign_Experiments/GFSLT/optimized_v2_20261023/cache/resnet18_frames/train"],
+ "vis_cache_dev": ["D:/iSign_Experiments/GFSLT/optimized_v2_20261023/cache/resnet18_frames/dev"]}

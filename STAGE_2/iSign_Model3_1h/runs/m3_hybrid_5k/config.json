@@ -1,0 +1,72 @@
+{
+ "config": {
+  "name": "m3_hybrid_5k",
+  "seed": 42,
+  "train_manifest": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/iSign_Model3_1h/manifests/train5k.csv",
+  "dev_manifest": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/iSign_Model3_1h/manifests/dev1k.csv",
+  "vis_cache_train": [
+   {
+    "root": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/full_k32/siglip",
+    "kind": "shard"
+   },
+   {
+    "root": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/pilot/siglip_train",
+    "kind": "positions"
+   }
+  ],
+  "vis_cache_dev": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/full_k32/siglip",
+  "lm_cache_train": [
+   {
+    "root": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/full_k32/landmarks",
+    "kind": "shard"
+   },
+   {
+    "root": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/pilot/landmarks_v1",
+    "kind": "positions"
+   }
+  ],
+  "lm_cache_dev": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/full_k32/landmarks",
+  "use_visual": true,
+  "use_landmarks": true,
+  "n_views": 1,
+  "T": 32,
+  "n_layers": 3,
+  "dropout": 0.1,
+  "feat_dropout": 0.1,
+  "label_smoothing": 0.1,
+  "lr_new": 0.0003,
+  "lr_mbart": 0.0001,
+  "weight_decay": 0.01,
+  "warmup_steps": 300,
+  "batch_size": 32,
+  "epochs": 12,
+  "patience": 4,
+  "max_label_len": 64,
+  "grad_clip": 1.0,
+  "num_workers": 2,
+  "vocab": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/cache/vocab/trimmed_vocab_train.json",
+  "max_train_steps": 0,
+  "vis_dim": 768,
+  "vis_kind": "shard",
+  "keyframes": null,
+  "frame_keep_min": 0.8,
+  "keyframes_json": "E:/FINAL YEAR PROJECT/GLOSS FREE SLT/isign_siglip_slt/manifests/keyframes_K32.json"
+ },
+ "mbart_revision": "f417e5563320b2cc8aabe4329d986b238809067f",
+ "pretrained_layers": [
+  0,
+  6,
+  11
+ ],
+ "vocab_size": 19551,
+ "n_train": 4921,
+ "n_dev": 990,
+ "train_excluded": 9,
+ "dev_excluded": 10,
+ "params_total": 116658944,
+ "params_new": 6350592,
+ "steps_per_epoch": 154,
+ "total_steps": 1848,
+ "torch": "2.5.1+cu124",
+ "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU"
+}

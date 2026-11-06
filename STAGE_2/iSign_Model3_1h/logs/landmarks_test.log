@@ -1,0 +1,2 @@
+{"shard": 0, "clips": 500, "frames": 15977, "wall_s": 188.5, "fps": 84.8, "decode_s_sum": 151.7, "mp_s_sum": 2406.6, "lh_rate": 0.8993, "rh_rate": 0.8746, "pose_rate": 0.9925, "elapsed_min": 3.1}
+{"shard": 1, "clips": 500, "frames": 15978, "wall_s": 182.4, "fps": 87.6, "decode_s_sum": 152.9, "mp_s_sum": 2375.3, "lh_rate": 0.8758, "rh_rate": 0.8402, "pose_rate": 0.9937, "elapsed_min": 6.2}

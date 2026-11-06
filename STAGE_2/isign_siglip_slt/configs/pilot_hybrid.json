@@ -1,0 +1,11 @@
+{
+ "name": "pilot_hybrid",
+ "train_manifest": "manifests/pilot_train.csv",
+ "dev_manifest": "manifests/subset2k_dev.csv",
+ "vis_cache_train": "cache/pilot/siglip_train",
+ "vis_cache_dev": "cache/pilot/siglip_dev",
+ "lm_cache_train": "cache/pilot/landmarks_v1",
+ "lm_cache_dev": "cache/pilot/landmarks_v1",
+ "use_visual": true, "use_landmarks": true, "n_views": 3, "T": 64,
+ "n_layers": 3, "batch_size": 32, "epochs": 15, "patience": 4, "warmup_steps": 200, "num_workers": 4
+}

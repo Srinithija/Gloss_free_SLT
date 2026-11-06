@@ -1,0 +1,22 @@
+{
+ "seed": 42,
+ "train_manifest": "manifests/train2k.csv",
+ "dev_manifest": "manifests/dev1k.csv",
+ "T": 32,
+ "frame_keep_min": 0.8,
+ "n_views": 1,
+ "batch_size": 32,
+ "epochs": 14,
+ "patience": 4,
+ "warmup_steps": 150,
+ "num_workers": 2,
+ "n_layers": 3,
+ "vocab": "../isign_siglip_slt/cache/vocab/trimmed_vocab_train.json",
+ "vis_cache_train": "../isign_siglip_slt/cache/full_k32/siglip",
+ "vis_cache_dev": "../isign_siglip_slt/cache/full_k32/siglip",
+ "lm_cache_train": "../isign_siglip_slt/cache/full_k32/landmarks",
+ "lm_cache_dev": "../isign_siglip_slt/cache/full_k32/landmarks",
+ "name": "visual_only",
+ "use_visual": true,
+ "use_landmarks": false
+}

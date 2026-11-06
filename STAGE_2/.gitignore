@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+envs/
+.venv/
+venv/
+
+# IDE and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+.env
+.env.*
+
+# Datasets and pretrained models (download separately)
+dataset/
+mbart_models/
+
+# Feature caches (regenerable); the trimmed vocabulary is needed to reload checkpoints
+cache/*
+!cache/vocab/
+isign_siglip_slt/cache/*
+!isign_siglip_slt/cache/vocab/
+iSign_Model3_1h/cache/
+
+# Checkpoints (too large for Git)
+*.pt
+*.pth
+*.pt.sha256
+*.npy
+
+# Files containing iSign captions, which must not be published
+*.tsv
+test_listing_*
+testing_*.png
+dev_predictions*
+
+# Temporary files
+*.tmp
+*.bak
+
+# Keep the experiment logs: they are the evidence for the results (the repo root ignores *.log)
+!iSign_Model3_1h/logs/*.log

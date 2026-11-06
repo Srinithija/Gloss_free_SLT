@@ -1,0 +1,3 @@
+{"name": "full_hybrid", "train_manifest": "manifests/full_extract_trdev.csv", "dev_manifest": "manifests/subset2k_dev.csv", "T": 32, "frame_keep_min": 0.8, "keyframes": "manifests/keyframes_K32.json", "n_views": 1, "batch_size": 32, "epochs": 12, "patience": 3, "warmup_steps": 1000, "num_workers": 2, "use_visual": true, "use_landmarks": true, "n_layers": 3,
+ "vis_cache_train": "cache/full_k32/siglip", "vis_cache_dev": "cache/full_k32/siglip",
+ "lm_cache_train": "cache/full_k32/landmarks", "lm_cache_dev": "cache/full_k32/landmarks"}

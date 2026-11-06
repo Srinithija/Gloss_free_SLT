@@ -1,0 +1,21 @@
+{
+ "train_captions_used": 100529,
+ "train_excluded": 1261,
+ "vocab_size": 19551,
+ "special_ids": {
+  "bos": 0,
+  "pad": 1,
+  "eos": 2,
+  "unk": 3,
+  "en_XX": 4
+ },
+ "dev_full_token_oov": [
+  0.004684807680662369,
+  181651
+ ],
+ "dev_subset2k_token_oov": [
+  0.004642691332452413,
+  28001
+ ],
+ "roundtrip_exact": true
+}
