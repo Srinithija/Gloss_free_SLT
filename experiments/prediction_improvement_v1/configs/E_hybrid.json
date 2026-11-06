@@ -1,0 +1,7 @@
+{
+ "E0_hybrid_greedy": {"members": [["hybrid", 1.0]], "strategy": "uniform", "mode": "greedy", "alpha": 0.0},
+ "E1_hybrid_candidates": {"members": [["hybrid", 1.0]], "strategy": "uniform", "mode": "candidates", "alpha": 0.0},
+ "E2_ens3_candidates": {"members": [["siglip_s2", 1.0], ["clip_s1", 1.0], ["hybrid", 1.0]], "strategy": "uniform", "mode": "candidates", "alpha": 0.0},
+ "E3_ens3_candidates_trim5": {"members": [["siglip_s2", 1.0], ["clip_s1", 1.0], ["hybrid", 1.0]], "strategy": "trim_5", "mode": "candidates", "alpha": 0.0},
+ "E4_siglip_s2_hybrid_candidates": {"members": [["siglip_s2", 1.0], ["hybrid", 1.0]], "strategy": "uniform", "mode": "candidates", "alpha": 0.0}
+}

@@ -1,0 +1,25 @@
+# Stage 1: frozen pretrained ViT features (cached), same recipe as the ResNet18 stage-1 run exp01_clipmean_stage1.
+name: clip_b16_stage1
+stage: 1
+encoder: clip_b16_224
+num_frames: 32
+clip_mean: true
+temporal_hidden: 1024
+encoder_layers: 3
+decoder_layers: 3
+dropout: 0.1
+batch_size: 16
+accum_steps: 1
+epochs: 100
+lr_new: 3.0e-4
+lr_mbart: 1.0e-4
+lr_vision: 0.0
+warmup_steps: 200
+label_smoothing: 0.1
+temporal_jitter: 0.1
+eval_every: 5
+patience: 8
+seed: 0
+reference:
+  name: ResNet18 stage 1 (exp01_clipmean_stage1)
+  file: C:/Users/SRINITHIJA/Desktop/Sign_processing/sltbaselines/outputs/ISL_full_v1/generalization/exp01_clipmean_stage1/status.json

@@ -1,0 +1,4 @@
+# Landmark environment for Stage 1 (Python 3.11). Install it in env_mediapipe, separately from requirements.txt.
+mediapipe==0.10.14
+numpy==1.26.4
+opencv-contrib-python==4.11.0.86

@@ -1,0 +1,4 @@
+{
+ "R3a_model3_alone_greedy": {"members": [["hybrid", 1.0]], "strategy": "uniform", "mode": "greedy", "alpha": 0.0},
+ "R3b_model3_alone_candidates_trim5": {"members": [["hybrid", 1.0]], "strategy": "trim_5", "mode": "candidates", "alpha": 0.0}
+}

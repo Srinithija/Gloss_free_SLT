@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+/env/
+/env_mediapipe/
+.venv/
+venv/
+
+# IDE and operating system files
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+.env
+.env.*
+
+# Temporary files
+*.tmp
+*.bak
+*~
+experiments/*/demo_tmp/
+
+# Logs: the report logs are kept because they are the evidence for the results
+*.log
+!experiments/*/reports/*.log
+experiments/*/logs/
+
+# Datasets, videos and extracted frames
+/archive/
+*.lmdb
+*.mdb
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.m4v
+*.zip
+
+# Images derived from dataset frames, which show the signers
+/isl_frame_tracking_visualizations/
+experiments/*/reports/mediapipe_overlays/
+experiments/*/reports/handcrop_sheets/
+
+# Pretrained weights and trained checkpoints
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.safetensors
+*.bin
+*.onnx
+
+# Caches and extracted features
+/cache/
+experiments/*/cache/
+*.npy
+*.npz
+
+# Training outputs and results. The test ledgers stay local too: repeat_test.py refuses any setting already listed.
+/outputs/
+experiments/*/runs/
+experiments/*/results/
+
+# Local integrity snapshots, which only apply to this computer
+/protection/
+experiments/*/reports/*.json
+
+# Not used by the current Stage 1 system: kept on this computer only
+/README_model1_archive.md
+/REPORT.md
+/configs/clip_b16_stage2.yaml
+/slt_vit/diagnostics.py
+/tools/compare_resnet.py
+/tools/video_check.py
+/isl_frame_tracking/
+/report_figures/*
+!/report_figures/architecture_slide.png
+/experiments/ISIGN_STARTER_PROMPT.md
+/experiments/prediction_improvement_v2/
+/experiments/prediction_improvement_v1/README.md
+/experiments/prediction_improvement_v1/architecture/
+/experiments/prediction_improvement_v1/time_settings.py
+/experiments/prediction_improvement_v1/landmarks/inspect_pilot.py
+/experiments/prediction_improvement_v1/pi_exp/live.py
+/experiments/prediction_improvement_v1/tools/*
+!/experiments/prediction_improvement_v1/tools/repeat_test.py

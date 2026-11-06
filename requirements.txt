@@ -1,0 +1,15 @@
+# Main environment for Stage 1 (Python 3.11, CUDA 12.4). MediaPipe is kept separately: see requirements-mediapipe.txt.
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+transformers==4.51.3
+sentencepiece==0.2.0
+safetensors==0.4.5
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+sacrebleu==2.4.3
+pandas==2.2.3
+openpyxl==3.1.5
+pyyaml==6.0.2
+streamlit==1.40.2
+protobuf==5.28.3

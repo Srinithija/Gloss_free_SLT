@@ -1,0 +1,118 @@
+{
+ "D1_candidates_trim5": {
+  "members": [
+   [
+    "siglip_s2",
+    1.0
+   ]
+  ],
+  "strategy": "trim_5",
+  "mode": "candidates",
+  "alpha": 0.0
+ },
+ "D2_ens_greedy_w0.6_trim5": {
+  "members": [
+   [
+    "siglip_s2",
+    0.6
+   ],
+   [
+    "clip_s1",
+    0.4
+   ]
+  ],
+  "strategy": "trim_5",
+  "mode": "greedy",
+  "alpha": 0.0
+ },
+ "D3_ens_candidates_w0.5_trim5": {
+  "members": [
+   [
+    "siglip_s2",
+    0.5
+   ],
+   [
+    "clip_s1",
+    0.5
+   ]
+  ],
+  "strategy": "trim_5",
+  "mode": "candidates",
+  "alpha": 0.0
+ },
+ "E0_hybrid_greedy": {
+  "members": [
+   [
+    "hybrid",
+    1.0
+   ]
+  ],
+  "strategy": "uniform",
+  "mode": "greedy",
+  "alpha": 0.0
+ },
+ "E1_hybrid_candidates": {
+  "members": [
+   [
+    "hybrid",
+    1.0
+   ]
+  ],
+  "strategy": "uniform",
+  "mode": "candidates",
+  "alpha": 0.0
+ },
+ "E2_ens3_candidates": {
+  "members": [
+   [
+    "siglip_s2",
+    1.0
+   ],
+   [
+    "clip_s1",
+    1.0
+   ],
+   [
+    "hybrid",
+    1.0
+   ]
+  ],
+  "strategy": "uniform",
+  "mode": "candidates",
+  "alpha": 0.0
+ },
+ "E3_ens3_candidates_trim5": {
+  "members": [
+   [
+    "siglip_s2",
+    1.0
+   ],
+   [
+    "clip_s1",
+    1.0
+   ],
+   [
+    "hybrid",
+    1.0
+   ]
+  ],
+  "strategy": "trim_5",
+  "mode": "candidates",
+  "alpha": 0.0
+ },
+ "E4_siglip_s2_hybrid_candidates": {
+  "members": [
+   [
+    "siglip_s2",
+    1.0
+   ],
+   [
+    "hybrid",
+    1.0
+   ]
+  ],
+  "strategy": "uniform",
+  "mode": "candidates",
+  "alpha": 0.0
+ }
+}

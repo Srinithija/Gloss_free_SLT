@@ -1,0 +1,30 @@
+# Stage 2: fine-tune the last 4 ViT blocks end to end from the stage-1 checkpoint (ResNet18 stage-2 recipe,
+# with a smaller vision learning rate and gradient checkpointing for 6 GB).
+name: siglip_b16_stage2
+stage: 2
+encoder: siglip_b16_224
+init: outputs/siglip_b16_stage1/best.pt
+num_frames: 32
+clip_mean: true
+temporal_hidden: 1024
+encoder_layers: 3
+decoder_layers: 3
+dropout: 0.1
+batch_size: 2
+accum_steps: 8
+epochs: 40
+lr_new: 1.0e-4
+lr_mbart: 3.0e-5
+lr_vision: 1.0e-5
+vision_trainable_blocks: 4
+gradient_checkpointing: true
+aug: strong
+warmup_steps: 50
+label_smoothing: 0.1
+temporal_jitter: 0.1
+eval_every: 2
+patience: 6
+seed: 0
+reference:
+  name: ResNet18 stage 2 (exp03_clipmean_e2e, current app model)
+  file: C:/Users/SRINITHIJA/Desktop/Sign_processing/sltbaselines/outputs/ISL_full_v1/generalization/exp03_clipmean_e2e/eval_val_beam1.json

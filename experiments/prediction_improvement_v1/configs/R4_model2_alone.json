@@ -1,0 +1,4 @@
+{
+ "R4a_model2_alone_greedy": {"members": [["clip_s1", 1.0]], "strategy": "uniform", "mode": "greedy", "alpha": 0.0},
+ "R4b_model2_alone_candidates_trim5": {"members": [["clip_s1", 1.0]], "strategy": "trim_5", "mode": "candidates", "alpha": 0.0}
+}

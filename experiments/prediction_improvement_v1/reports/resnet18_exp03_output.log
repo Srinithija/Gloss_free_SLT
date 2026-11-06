@@ -1,0 +1,262 @@
+==============================================================================================================
+RESNET18 MODEL (original project sltbaselines, app model exp03_clipmean_e2e), output log
+==============================================================================================================
+checkpoint     : sltbaselines/outputs/ISL_full_v1/generalization/exp03_clipmean_e2e/best.pt
+sha256         : 54689177acac3732f16760d21469ce2d09eddae80110cb6903a61a9317196343
+architecture   : 32 frames (224x224) -> ResNet18 (ImageNet pretrained) -> 512-d per frame -> clip-mean normalization
+                 -> temporal convolution -> mBART-cc25 encoder 3 layers + decoder 3 layers, trimmed vocabulary, decoder start en_XX
+data           : train signers 1-5 (474 clips) | validation signer 6 (94) | test signer 7 (91) - same split as the ViT project
+stage 1        : exp01_clipmean_stage1, frozen ResNet18 features; best epoch 95 (completed)
+stage 2        : exp03_clipmean_e2e, end-to-end from stage 1; batch 4 x accum 4, lr backbone 2e-05, new layers 0.0001, mBART 3e-05, label smoothing 0.1; best epoch 24 (early_stopped: patience: no new best validation BLEU-4 in 6 evaluations)
+
+--------------------------------------------------------------------------------------------------------------
+TRAINING HISTORY, STAGE 1 (frozen ResNet18 features; validation signer 6, greedy)
+--------------------------------------------------------------------------------------------------------------
+epoch | train loss | val loss |        exact | BLEU-4 | ROUGE-L | sec/epoch
+    5 |     2.8567 |   1.4422 |   0/94   0.0% |   2.56 |   13.22 | 3
+   10 |     1.8063 |   0.9992 |   2/94   2.1% |   4.47 |   15.65 | 3
+   15 |     1.3824 |   0.8894 |  10/94  10.6% |  14.92 |   21.79 | 3
+   20 |     1.1637 |   0.9198 |  11/94  11.7% |  16.33 |   29.01 | 5
+   25 |     1.0585 |   0.9802 |  17/94  18.1% |  22.19 |   28.23 | 3
+   30 |     0.9928 |   0.9081 |  21/94  22.3% |  24.96 |   37.50 | 4
+   35 |     0.9713 |   0.8862 |  23/94  24.5% |  27.43 |   36.95 | 8
+   40 |     0.9492 |   0.8411 |  23/94  24.5% |  31.12 |   38.68 | 3
+   45 |     0.9271 |   0.8213 |  29/94  30.9% |  35.20 |   43.04 | 3
+   50 |     0.9116 |   0.7115 |  27/94  28.7% |  30.68 |   42.88 | 3
+   55 |     0.9011 |   0.7361 |  28/94  29.8% |  30.32 |   42.91 | 3
+   60 |     0.8934 |   0.8442 |  27/94  28.7% |  30.70 |   41.58 | 3
+   65 |     0.8865 |   0.7895 |  31/94  33.0% |  35.86 |   43.58 | 3
+   70 |     0.8815 |   0.7609 |  31/94  33.0% |  32.93 |   45.35 | 3
+   75 |     0.8781 |   0.7679 |  30/94  31.9% |  33.86 |   43.94 | 3
+   80 |     0.8737 |   0.7621 |  34/94  36.2% |  38.18 |   47.76 | 3
+   85 |     0.8725 |   0.7720 |  33/94  35.1% |  37.69 |   45.12 | 3
+   90 |     0.8710 |   0.7728 |  34/94  36.2% |  39.43 |   48.21 | 3
+   95 |     0.8705 |   0.7770 |  34/94  36.2% |  39.82 |   47.07 | 3  <- best (saved)
+  100 |     0.8707 |   0.7777 |  33/94  35.1% |  38.79 |   45.86 | 4
+
+--------------------------------------------------------------------------------------------------------------
+TRAINING HISTORY, STAGE 2 (end-to-end; validation signer 6, greedy)
+--------------------------------------------------------------------------------------------------------------
+epoch | train loss | val loss |        exact | BLEU-4 | ROUGE-L | sec/epoch
+    2 |     0.9295 |   0.7315 |  32/94  34.0% |  37.26 |   47.77 | 48
+    4 |     0.9320 |   0.7436 |  25/94  26.6% |  30.94 |   39.46 | 48
+    6 |     0.9073 |   0.6550 |  33/94  35.1% |  37.78 |   46.83 | 48
+    8 |     0.9166 |   0.7328 |  27/94  28.7% |  30.16 |   41.98 | 48
+   10 |     0.8976 |   0.6927 |  33/94  35.1% |  37.68 |   48.60 | 48
+   12 |     0.8995 |   0.5991 |  35/94  37.2% |  41.72 |   48.15 | 48
+   14 |     0.8928 |   0.5609 |  42/94  44.7% |  49.36 |   55.95 | 48
+   16 |     0.8873 |   0.5962 |  40/94  42.5% |  47.34 |   52.52 | 48
+   18 |     0.8881 |   0.6008 |  34/94  36.2% |  41.52 |   49.61 | 48
+   20 |     0.8823 |   0.6067 |  34/94  36.2% |  40.51 |   49.54 | 48
+   22 |     0.8776 |   0.6145 |  31/94  33.0% |  36.88 |   45.50 | 47
+   24 |     0.8780 |   0.5936 |  44/94  46.8% |  50.38 |   56.17 | 47  <- best (saved)
+   26 |     0.8762 |   0.6009 |  37/94  39.4% |  41.20 |   50.14 | 48
+   28 |     0.8756 |   0.5915 |  39/94  41.5% |  45.17 |   52.08 | 47
+   30 |     0.8746 |   0.5949 |  38/94  40.4% |  42.94 |   50.81 | 46
+   32 |     0.8724 |   0.5981 |  37/94  39.4% |  41.66 |   50.61 | 46
+   34 |     0.8721 |   0.5923 |  38/94  40.4% |  44.97 |   51.68 | 46
+   36 |     0.8780 |   0.5901 |  38/94  40.4% |  45.52 |   51.96 | 46
+(validation during training reads cached frames; the evaluation below uses the inference path, hence 43 vs 44 at epoch 24)
+
+--------------------------------------------------------------------------------------------------------------
+RESULTS SUMMARY
+--------------------------------------------------------------------------------------------------------------
+validation, signer 6 (greedy, inference path): exact 43/94 = 45.7% | BLEU-1 54.88 | BLEU-4 48.59 | ROUGE-L 55.30 | distinct predictions 49
+signers 3-5 check (fold models, stage 2)      : 87/282 = 30.9%, BLEU-4 33.2
+TEST, signer 7 (greedy, official, once)      : exact 9/91 = 9.9% | BLEU-1 22.60 | BLEU-4 12.57 | ROUGE-L 23.20 | distinct predictions 31
+model time per clip                          : 0.073 s on the RTX 3050
+
+--------------------------------------------------------------------------------------------------------------
+VALIDATION, signer 6 - clip by clip
+--------------------------------------------------------------------------------------------------------------
+  1. WRONG | real: he is going into the room              | predicted: you are welcome
+  2. WRONG | real: this place is beautiful                | predicted: i am feeling bored
+  3. WRONG | real: are you free today                     | predicted: i am not really sure
+  4. WRONG | real: are you hiding something               | predicted: do not make me angry
+  5. OK    | real: bring water for me                     | predicted: bring water for me
+  6. WRONG | real: can i help you                         | predicted: i promise
+  7. WRONG | real: can you repeat that please             | predicted: do me a favour
+  8. OK    | real: comb your hair                         | predicted: comb your hair
+  9. WRONG | real: congratulations                        | predicted: you can do it
+ 10. OK    | real: could you please talk slower           | predicted: could you please talk slower
+ 11. WRONG | real: do me a favour                         | predicted: i am sitting in the class
+ 12. OK    | real: do not abuse him                       | predicted: do not abuse him
+ 13. OK    | real: do not be stubborn                     | predicted: do not be stubborn
+ 14. WRONG | real: do not hurt me                         | predicted: i am afraid of that
+ 15. OK    | real: do not make me angry                   | predicted: do not make me angry
+ 16. WRONG | real: do not take it to the heart            | predicted: do not be stubborn
+ 17. WRONG | real: do not worry                           | predicted: i am so sorry to hear that
+ 18. WRONG | real: do you need something                  | predicted: had your food
+ 19. WRONG | real: go and sleep                           | predicted: prepare the bed
+ 20. WRONG | real: had your food                          | predicted: i am afraid of that
+ 21. WRONG | real: he came by train                       | predicted: do not abuse him
+ 22. WRONG | real: he is on the way                       | predicted: what do you think
+ 23. OK    | real: he she is my friend                    | predicted: he she is my friend
+ 24. WRONG | real: help me                                | predicted: serve the food
+ 25. OK    | real: how are things                         | predicted: how are things
+ 26. WRONG | real: how can i help you                     | predicted: i do not mean it
+ 27. WRONG | real: how can i trust you                    | predicted: why are you disappointed
+ 28. WRONG | real: how dare you                           | predicted: i do not mean it
+ 29. WRONG | real: how old are you                        | predicted: i am afraid of that
+ 30. WRONG | real: i am (age)                             | predicted: i am crying
+ 31. OK    | real: i am afraid of that                    | predicted: i am afraid of that
+ 32. OK    | real: i am crying                            | predicted: i am crying
+ 33. OK    | real: i am feeling bored                     | predicted: i am feeling bored
+ 34. WRONG | real: i am feeling cold                      | predicted: i am (age)
+ 35. WRONG | real: i am fine. thank you sir               | predicted: i am (age)
+ 36. OK    | real: i am hungry                            | predicted: i am hungry
+ 37. OK    | real: i am in dilemma what to do             | predicted: i am in dilemma what to do
+ 38. OK    | real: i am not really sure                   | predicted: i am not really sure
+ 39. WRONG | real: i am really grateful                   | predicted: i am afraid of that
+ 40. OK    | real: i am sitting in the class              | predicted: i am sitting in the class
+ 41. OK    | real: i am so sorry to hear that             | predicted: i am so sorry to hear that
+ 42. OK    | real: i am suffering from fever              | predicted: i am suffering from fever
+ 43. WRONG | real: i am tired                             | predicted: i am feeling bored
+ 44. WRONG | real: i am very happy                        | predicted: i am sitting in the class
+ 45. WRONG | real: i can not help you there               | predicted: are you hiding something
+ 46. WRONG | real: i do not agree                         | predicted: i do not mean it
+ 47. OK    | real: i do not like it                       | predicted: i do not like it
+ 48. OK    | real: i do not mean it                       | predicted: i do not mean it
+ 49. WRONG | real: i enjoyed a lot                        | predicted: i do not like it
+ 50. WRONG | real: i got hurt                             | predicted: i am so sorry to hear that
+ 51. WRONG | real: i like you i love you                  | predicted: i am not really sure
+ 52. OK    | real: i need water                           | predicted: i need water
+ 53. OK    | real: i promise                              | predicted: i promise
+ 54. OK    | real: i somehow got to know about it         | predicted: i somehow got to know about it
+ 55. WRONG | real: i was stopped by some one              | predicted: i am hungry
+ 56. WRONG | real: it does not make any difference to me  | predicted: how are things
+ 57. WRONG | real: it was nice chatting with you          | predicted: i am sitting in the class
+ 58. OK    | real: let him take time                      | predicted: let him take time
+ 59. OK    | real: my name is xxxxxxxx                    | predicted: my name is xxxxxxxx
+ 60. WRONG | real: nice to meet you                       | predicted: i am afraid of that
+ 61. OK    | real: pour some more water into the glass    | predicted: pour some more water into the glass
+ 62. OK    | real: prepare the bed                        | predicted: prepare the bed
+ 63. OK    | real: serve the food                         | predicted: serve the food
+ 64. OK    | real: shall we go outside                    | predicted: shall we go outside
+ 65. OK    | real: speak softly                           | predicted: speak softly
+ 66. WRONG | real: take care of yourself                  | predicted: what do you think
+ 67. OK    | real: tell me truth                          | predicted: tell me truth
+ 68. OK    | real: thank you so much                      | predicted: thank you so much
+ 69. WRONG | real: that is so kind of you                 | predicted: i am afraid of that
+ 70. OK    | real: try to understand                      | predicted: try to understand
+ 71. OK    | real: turn on light turn off light           | predicted: turn on light turn off light
+ 72. OK    | real: we are all with you                    | predicted: we are all with you
+ 73. WRONG | real: wear the shirt                         | predicted: you do anything, i do not care
+ 74. WRONG | real: what are you doing                     | predicted: what do you think
+ 75. WRONG | real: what did you tell him                  | predicted: what do you think
+ 76. WRONG | real: what do you do                         | predicted: what do you think
+ 77. OK    | real: what do you think                      | predicted: what do you think
+ 78. OK    | real: what do you want to become             | predicted: what do you want to become
+ 79. WRONG | real: what happened                          | predicted: why are you disappointed
+ 80. WRONG | real: what is your phone number              | predicted: are you hiding something
+ 81. OK    | real: what you want                          | predicted: what you want
+ 82. OK    | real: when will the train leave              | predicted: when will the train leave
+ 83. WRONG | real: where are you from                     | predicted: i do not like it
+ 84. OK    | real: which collegeschool are you from       | predicted: which collegeschool are you from
+ 85. WRONG | real: who are you                            | predicted: why are you angry
+ 86. OK    | real: why are you angry                      | predicted: why are you angry
+ 87. OK    | real: why are you crying                     | predicted: why are you crying
+ 88. OK    | real: why are you disappointed               | predicted: why are you disappointed
+ 89. WRONG | real: you are bad                            | predicted: you can do it
+ 90. WRONG | real: you are good                           | predicted: speak softly
+ 91. OK    | real: you are welcome                        | predicted: you are welcome
+ 92. WRONG | real: you can do it                          | predicted: speak softly
+ 93. WRONG | real: you do anything, i do not care         | predicted: i am feeling bored
+ 94. WRONG | real: you need a medicine, take this one     | predicted: i need water
+
+--------------------------------------------------------------------------------------------------------------
+TEST, signer 7 - clip by clip (official evaluation)
+--------------------------------------------------------------------------------------------------------------
+  1. WRONG | real: he is going into the room              | predicted: i am sitting in the class
+  2. WRONG | real: this place is beautiful                | predicted: i was stopped by some one
+  3. WRONG | real: are you free today                     | predicted: how can i help you
+  4. WRONG | real: are you hiding something               | predicted: thank you so much
+  5. WRONG | real: bring water for me                     | predicted: nice to meet you
+  6. WRONG | real: can i help you                         | predicted: do not abuse him
+  7. WRONG | real: can you repeat that please             | predicted: can i help you
+  8. WRONG | real: comb your hair                         | predicted: how can i help you
+  9. WRONG | real: congratulations                        | predicted: you are welcome
+ 10. WRONG | real: could you please talk slower           | predicted: how dare you
+ 11. WRONG | real: do me a favour                         | predicted: prepare the bed
+ 12. OK    | real: do not abuse him                       | predicted: do not abuse him
+ 13. WRONG | real: do not hurt me                         | predicted: do not abuse him
+ 14. WRONG | real: do not make me angry                   | predicted: you can do it
+ 15. WRONG | real: do not take it to the heart            | predicted: do not abuse him
+ 16. WRONG | real: do not worry                           | predicted: i am sitting in the class
+ 17. WRONG | real: do you need something                  | predicted: can i help you
+ 18. OK    | real: go and sleep                           | predicted: go and sleep
+ 19. WRONG | real: had your food                          | predicted: do not abuse him
+ 20. WRONG | real: he came by train                       | predicted: i am in dilemma what to do
+ 21. WRONG | real: he is on the way                       | predicted: how dare you
+ 22. WRONG | real: he she is my friend                    | predicted: do me a favour
+ 23. WRONG | real: help me                                | predicted: i like you i love you
+ 24. WRONG | real: hi how are you                         | predicted: do not abuse him
+ 25. WRONG | real: how are things                         | predicted: i am feeling cold
+ 26. WRONG | real: how can i help you                     | predicted: i was stopped by some one
+ 27. WRONG | real: how can i trust you                    | predicted: i am very happy
+ 28. WRONG | real: how dare you                           | predicted: i am sitting in the class
+ 29. WRONG | real: how old are you                        | predicted: i am afraid of that
+ 30. OK    | real: i am (age)                             | predicted: i am (age)
+ 31. WRONG | real: i am afraid of that                    | predicted: i am not really sure
+ 32. WRONG | real: i am crying                            | predicted: i am hungry
+ 33. WRONG | real: i am feeling bored                     | predicted: i am not really sure
+ 34. WRONG | real: i am feeling cold                      | predicted: i am (age)
+ 35. WRONG | real: i am fine. thank you sir               | predicted: how can i help you
+ 36. WRONG | real: i am hungry                            | predicted: i am very happy
+ 37. WRONG | real: i am in dilemma what to do             | predicted: i am suffering from fever
+ 38. WRONG | real: i am not really sure                   | predicted: i am very happy
+ 39. OK    | real: i am sitting in the class              | predicted: i am sitting in the class
+ 40. WRONG | real: i am so sorry to hear that             | predicted: i am very happy
+ 41. WRONG | real: i am suffering from fever              | predicted: i am (age)
+ 42. WRONG | real: i am tired                             | predicted: i am sitting in the class
+ 43. WRONG | real: i am very happy                        | predicted: can i help you
+ 44. OK    | real: i can not help you there               | predicted: i can not help you there
+ 45. WRONG | real: i do not agree                         | predicted: can i help you
+ 46. WRONG | real: i do not like it                       | predicted: i do not agree
+ 47. WRONG | real: i do not mean it                       | predicted: i promise
+ 48. WRONG | real: i enjoyed a lot                        | predicted: i am not really sure
+ 49. WRONG | real: i got hurt                             | predicted: do not abuse him
+ 50. WRONG | real: i like you i love you                  | predicted: i am very happy
+ 51. WRONG | real: i need water                           | predicted: i am (age)
+ 52. OK    | real: i promise                              | predicted: i promise
+ 53. WRONG | real: i really appreciate it                 | predicted: i was stopped by some one
+ 54. WRONG | real: i somehow got to know about it         | predicted: i am in dilemma what to do
+ 55. WRONG | real: i was stopped by some one              | predicted: thank you so much
+ 56. WRONG | real: it does not make any difference to me  | predicted: i promise
+ 57. WRONG | real: let him take time                      | predicted: i am sitting in the class
+ 58. WRONG | real: my name is xxxxxxxx                    | predicted: i am very happy
+ 59. WRONG | real: pour some more water into the glass    | predicted: thank you so much
+ 60. WRONG | real: prepare the bed                        | predicted: i am very happy
+ 61. WRONG | real: serve the food                         | predicted: nice to meet you
+ 62. WRONG | real: shall we go outside                    | predicted: do not abuse him
+ 63. WRONG | real: speak softly                           | predicted: thank you so much
+ 64. WRONG | real: take care of yourself                  | predicted: i am very happy
+ 65. WRONG | real: tell me truth                          | predicted: i am very happy
+ 66. OK    | real: thank you so much                      | predicted: thank you so much
+ 67. WRONG | real: that is so kind of you                 | predicted: do not abuse him
+ 68. WRONG | real: try to understand                      | predicted: i do not mean it
+ 69. WRONG | real: turn on light turn off light           | predicted: i am feeling bored
+ 70. WRONG | real: we are all with you                    | predicted: i am sitting in the class
+ 71. WRONG | real: wear the shirt                         | predicted: how dare you
+ 72. WRONG | real: what are you doing                     | predicted: i am very happy
+ 73. WRONG | real: what did you tell him                  | predicted: do not abuse him
+ 74. OK    | real: what do you think                      | predicted: what do you think
+ 75. WRONG | real: what do you want to become             | predicted: i was stopped by some one
+ 76. WRONG | real: what happened                          | predicted: how can i trust you
+ 77. WRONG | real: what is your phone number              | predicted: i am afraid of that
+ 78. WRONG | real: what you want                          | predicted: i am hungry
+ 79. WRONG | real: when will the train leave              | predicted: i can not help you there
+ 80. OK    | real: where are you from                     | predicted: where are you from
+ 81. WRONG | real: which collegeschool are you from       | predicted: how can i help you
+ 82. WRONG | real: who are you                            | predicted: speak softly
+ 83. WRONG | real: why are you angry                      | predicted: i am in dilemma what to do
+ 84. WRONG | real: why are you crying                     | predicted: i am afraid of that
+ 85. WRONG | real: why are you disappointed               | predicted: how can i trust you
+ 86. WRONG | real: you are bad                            | predicted: i am hungry
+ 87. WRONG | real: you are good                           | predicted: how can i trust you
+ 88. WRONG | real: you are welcome                        | predicted: i am in dilemma what to do
+ 89. WRONG | real: you can do it                          | predicted: do not abuse him
+ 90. WRONG | real: you do anything, i do not care         | predicted: i am very happy
+ 91. WRONG | real: you need a medicine, take this one     | predicted: i am not really sure
+
+Comparison on signer 7: ResNet18 9/91 = 9.9% | SigLIP Model 1 23/91 = 25.3% (official) | final ensemble E3 59/91 = 64.8% (repeat evaluation)
