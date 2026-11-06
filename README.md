@@ -9,8 +9,6 @@ This project translates Indian Sign Language (ISL) video into English without gl
 
 **In short:** the system works well on a fixed list of sentences, but it does not yet translate new sentences faithfully. The Stage 2 result is a research baseline, not a working translator.
 
-> [!IMPORTANT]
-> **This repository currently contains the Stage 1 code only.** Stage 2 was developed in a separate project on another computer and will be added later. Its section describes the pipeline and results, and marks the missing commands as TODO. Datasets and trained checkpoints aren't included, so you need to download the data and train the models before running the demo.
 
 ## Contents
 
