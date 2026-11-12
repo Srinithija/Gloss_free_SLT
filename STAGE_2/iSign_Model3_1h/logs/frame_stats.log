@@ -1,0 +1,5 @@
+['uid', 'split', 'lmdb_ok', 'n_stored', 'orig_frames_meta', 'lmdb_hw', 'video_ok', 'video_w', 'video_h', 'video_fps', 'video_frames', 'error']
+frame cols ['orig_frames_meta', 'video_frames']
+train2k {"clips": 2000, "orig_frames_total": 381698, "orig_mean": 190.8, "stored_total": 226642, "active_span_mean": 101.3, "selected_total": 63784, "selected_mean": 31.89, "retained_pct_of_orig": 16.71, "retained_pct_of_stored": 28.14}
+dev1k {"clips": 1000, "orig_frames_total": 212187, "orig_mean": 212.2, "stored_total": 116311, "active_span_mean": 104.6, "selected_total": 31979, "selected_mean": 31.98, "retained_pct_of_orig": 15.07, "retained_pct_of_stored": 27.49}
+test1k {"clips": 1000, "orig_frames_total": 204901, "orig_mean": 204.9, "stored_total": 117465, "active_span_mean": 105.6, "selected_total": 31955, "selected_mean": 31.96, "retained_pct_of_orig": 15.6, "retained_pct_of_stored": 27.2}

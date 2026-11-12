@@ -1,0 +1,400 @@
+{
+ "counts_csv": {
+  "train": 101790,
+  "dev": 12724,
+  "test": 12723
+ },
+ "lmdb_labels_vs_csv": {
+  "train": {
+   "n_labels": 101790,
+   "uid_sets_equal": true,
+   "text_mismatches": 0
+  },
+  "dev": {
+   "n_labels": 12724,
+   "uid_sets_equal": true,
+   "text_mismatches": 0
+  },
+  "test": {
+   "n_labels": 12723,
+   "uid_sets_equal": true,
+   "text_mismatches": 0
+  }
+ },
+ "clips": {
+  "train": {
+   "n_scanned": 101790,
+   "video_frames": {
+    "p0": 11.0,
+    "p50": 183.0,
+    "p90": 367.0,
+    "p99": 624.0,
+    "p100": 2370.0,
+    "mean": 209.42
+   },
+   "duration_s": {
+    "p0": 0.37,
+    "p50": 6.61,
+    "p90": 13.0,
+    "p99": 21.96,
+    "p100": 79.08,
+    "mean": 7.51
+   },
+   "lmdb_stored_frames": {
+    "p0": 11.0,
+    "p50": 128.0,
+    "p90": 128.0,
+    "p99": 128.0,
+    "p100": 128.0,
+    "mean": 116.98
+   },
+   "frac_stored_128": 0.7122
+  },
+  "dev": {
+   "n_scanned": 12724,
+   "video_frames": {
+    "p0": 11.0,
+    "p50": 179.5,
+    "p90": 364.0,
+    "p99": 625.0,
+    "p100": 1905.0,
+    "mean": 206.78
+   },
+   "duration_s": {
+    "p0": 0.37,
+    "p50": 6.52,
+    "p90": 12.84,
+    "p99": 21.69,
+    "p100": 63.56,
+    "mean": 7.42
+   },
+   "lmdb_stored_frames": {
+    "p0": 11.0,
+    "p50": 128.0,
+    "p90": 128.0,
+    "p99": 128.0,
+    "p100": 128.0,
+    "mean": 116.89
+   },
+   "frac_stored_128": 0.7003
+  },
+  "test": {
+   "n_scanned": 12723,
+   "video_frames": {
+    "p0": 11.0,
+    "p50": 183.0,
+    "p90": 359.8,
+    "p99": 625.78,
+    "p100": 1998.0,
+    "mean": 208.65
+   },
+   "duration_s": {
+    "p0": 0.37,
+    "p50": 6.6,
+    "p90": 12.76,
+    "p99": 22.31,
+    "p100": 66.67,
+    "mean": 7.48
+   },
+   "lmdb_stored_frames": {
+    "p0": 11.0,
+    "p50": 128.0,
+    "p90": 128.0,
+    "p99": 128.0,
+    "p100": 128.0,
+    "mean": 117.67
+   },
+   "frac_stored_128": 0.7242
+  }
+ },
+ "video_resolution_top": [
+  [
+   "300x300",
+   108606
+  ],
+  [
+   "662x720",
+   302
+  ],
+  [
+   "678x720",
+   278
+  ],
+  [
+   "658x720",
+   276
+  ],
+  [
+   "656x720",
+   268
+  ],
+  [
+   "664x720",
+   267
+  ],
+  [
+   "652x720",
+   264
+  ],
+  [
+   "672x720",
+   263
+  ],
+  [
+   "668x720",
+   259
+  ],
+  [
+   "674x720",
+   254
+  ],
+  [
+   "648x720",
+   242
+  ],
+  [
+   "684x720",
+   230
+  ]
+ ],
+ "video_resolution_min_side": {
+  "p0": 74.0,
+  "p50": 300.0,
+  "p90": 518.0,
+  "p99": 694.0,
+  "p100": 720.0,
+  "mean": 337.82
+ },
+ "video_fps_top": [
+  [
+   29.97,
+   65714
+  ],
+  [
+   25.0,
+   57433
+  ],
+  [
+   29.0,
+   3776
+  ],
+  [
+   30.0,
+   295
+  ],
+  [
+   12.0,
+   19
+  ]
+ ],
+ "lmdb_frame_hw": [
+  [
+   "256x256",
+   127237
+  ]
+ ],
+ "n_errors": 0,
+ "error_kinds": [],
+ "lmdb_bytes_total_GB": 194.67,
+ "video_bytes_total_GB": 58.55,
+ "text": {
+  "train": {
+   "n": 101790,
+   "excluded": {
+    "placeholder": 170,
+    "empty": 273
+   },
+   "kept": 101347,
+   "words": {
+    "p0": 1.0,
+    "p50": 10.0,
+    "p90": 18.0,
+    "p99": 24.0,
+    "p100": 59.0,
+    "mean": 10.77
+   },
+   "sp_tokens": {
+    "p0": 1.0,
+    "p50": 14.0,
+    "p90": 24.0,
+    "p99": 32.0,
+    "p100": 78.0,
+    "mean": 14.54
+   },
+   "frac_tokens_gt_60": 0.0001,
+   "vocab_normalized": 33329,
+   "vocab_singletons": 12700,
+   "unique_texts": 98792,
+   "frac_unique": 0.9748,
+   "top_texts": "[omitted]",
+   "frac_starts_upper": 0.7761,
+   "frac_ends_punct": 0.7574,
+   "frac_has_digit": 0.2015,
+   "frac_non_ascii": 0.0286,
+   "frac_one_word": 0.0287
+  },
+  "dev": {
+   "n": 12724,
+   "excluded": {
+    "placeholder": 27,
+    "empty": 44
+   },
+   "kept": 12653,
+   "words": {
+    "p0": 1.0,
+    "p50": 10.0,
+    "p90": 18.0,
+    "p99": 24.0,
+    "p100": 66.0,
+    "mean": 10.68
+   },
+   "sp_tokens": {
+    "p0": 1.0,
+    "p50": 14.0,
+    "p90": 24.0,
+    "p99": 32.0,
+    "p100": 100.0,
+    "mean": 14.4
+   },
+   "frac_tokens_gt_60": 0.0004,
+   "vocab_normalized": 11396,
+   "vocab_singletons": 4833,
+   "unique_texts": 12492,
+   "frac_unique": 0.9873,
+   "top_texts": "[omitted]",
+   "frac_starts_upper": 0.7823,
+   "frac_ends_punct": 0.7594,
+   "frac_has_digit": 0.2099,
+   "frac_non_ascii": 0.0259,
+   "frac_one_word": 0.0303,
+   "overlap_with_train": {
+    "verbatim_frac": 0.0508,
+    "normalized_frac": 0.0604,
+    "normalized_count": 764,
+    "word_oov_rate_vs_train": 0.0195
+   }
+  },
+  "test": {
+   "n": 12723,
+   "excluded": {
+    "placeholder": 22,
+    "empty": 74
+   },
+   "kept": 12627,
+   "words": {
+    "p0": 1.0,
+    "p50": 10.0,
+    "p90": 18.0,
+    "p99": 24.0,
+    "p100": 57.0,
+    "mean": 10.8
+   },
+   "sp_tokens": {
+    "p0": 1.0,
+    "p50": 14.0,
+    "p90": 24.0,
+    "p99": 33.0,
+    "p100": 89.0,
+    "mean": 14.64
+   },
+   "frac_tokens_gt_60": 0.0004,
+   "vocab_normalized": 11768,
+   "vocab_singletons": 5009,
+   "unique_texts": 12468,
+   "frac_unique": 0.9874,
+   "top_texts": "[omitted]",
+   "frac_starts_upper": 0.7944,
+   "frac_ends_punct": 0.7571,
+   "frac_has_digit": 0.1994,
+   "frac_non_ascii": 0.0319,
+   "frac_one_word": 0.0322,
+   "overlap_with_train": {
+    "verbatim_frac": 0.0299,
+    "normalized_frac": 0.0392,
+    "normalized_count": 495,
+    "word_oov_rate_vs_train": 0.0198
+   }
+  }
+ },
+ "source_videos": {
+  "train": {
+   "n": 3455,
+   "clips_per_source": {
+    "p0": 1.0,
+    "p50": 22.0,
+    "p90": 47.0,
+    "p99": 213.38,
+    "p100": 336.0,
+    "mean": 29.46
+   },
+   "id_style_youtube11": 3371,
+   "id_style_hex12": 84
+  },
+  "dev": {
+   "n": 429,
+   "clips_per_source": {
+    "p0": 1.0,
+    "p50": 22.0,
+    "p90": 47.2,
+    "p99": 207.92,
+    "p100": 373.0,
+    "mean": 29.66
+   },
+   "id_style_youtube11": 414,
+   "id_style_hex12": 15
+  },
+  "test": {
+   "n": 428,
+   "clips_per_source": {
+    "p0": 2.0,
+    "p50": 22.0,
+    "p90": 47.0,
+    "p99": 203.03,
+    "p100": 492.0,
+    "mean": 29.73
+   },
+   "id_style_youtube11": 415,
+   "id_style_hex12": 13
+  }
+ },
+ "source_overlap_train_test": 0,
+ "contact_sheets": [
+  "E:\\FINAL YEAR PROJECT\\GLOSS FREE SLT\\isign_siglip_slt\\reports\\audit\\contact_lmdb_1.jpg",
+  "E:\\FINAL YEAR PROJECT\\GLOSS FREE SLT\\isign_siglip_slt\\reports\\audit\\contact_lmdb_2.jpg",
+  "E:\\FINAL YEAR PROJECT\\GLOSS FREE SLT\\isign_siglip_slt\\reports\\audit\\contact_lmdb_3.jpg",
+  "E:\\FINAL YEAR PROJECT\\GLOSS FREE SLT\\isign_siglip_slt\\reports\\audit\\contact_mp4_midframes.jpg"
+ ],
+ "contact_sheet_uids": [
+  "b-yZG0lNMis--22",
+  "qtmH6PomxXU--12",
+  "MBVJ8Y5BZ6o--41",
+  "dJ_5m1Y2InE--179",
+  "sUXoSH9MILc--5",
+  "533abb879383-125",
+  "QWx3gkXs52E--15",
+  "XgmuhfB695I--66",
+  "D6XY7TZa3qY--67",
+  "gcjjl8Kj-cs--3",
+  "SnpgyaONk1c--13",
+  "Vu0cn4ffv5g--5",
+  "9f1c001437d8-43",
+  "AZ_4wux5vrs--40",
+  "bGz1Dygl4fA--2",
+  "_D-x7OswJtc--25",
+  "EDOx0MPrLv8--12",
+  "ZfW_9iUhX4w--76",
+  "9BB5MLMJZUE--19",
+  "dJ_5m1Y2InE--364",
+  "PjEoaMLqE_I--36",
+  "eUd_U5QzX9A--39",
+  "zboUiAfILU8--9",
+  "mJ69KqzX3lU--172",
+  "JpAZvLTDfPA--21",
+  "MjFpCgFgt1A--34",
+  "NI787JtKq9k--32",
+  "LjnS-cnPY0I--32",
+  "Hn3Wif8w2LM--0",
+  "exqm_484F14--41"
+ ],
+ "runtime_s": 685.4
+}

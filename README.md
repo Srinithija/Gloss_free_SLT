@@ -50,7 +50,7 @@ This project translates Indian Sign Language (ISL) video into English without gl
 | **Output** | Highest-scoring of 97 sentences | Word-by-word generation (greedy selected; beam-4 also tested) |
 
 > [!NOTE]
-> **Two meanings of "stage".** The config files `*_stage1.yaml` and `*_stage2.yaml` and the scripts `train_stage1.py` and `train_stage2.py` are **training steps within this README's Stage 1**. Step 1 trains on frozen features; step 2 fine-tunes the vision encoder. Neither has anything to do with iSign.
+> **Two meanings of "stage".** The `STAGE_2/` folder holds this README's Stage 2. The config files `*_stage1.yaml` and `*_stage2.yaml` and the scripts `train_stage1.py` and `train_stage2.py` are **training steps within this README's Stage 1**. Step 1 trains on frozen features; step 2 fine-tunes the vision encoder. Neither has anything to do with iSign.
 
 ## 2. Architecture
 
@@ -204,7 +204,18 @@ iSign contains ISL videos with English sentences, drawn from public sources incl
 
 The split is grouped by source video, so no source video appears in more than one subset. About 95% of test sentences never appear in the full training split. The same interpreters can appear in training and test, so these results are not signer-independent.
 
-> **TODO:** add the exact download steps, expected folder layout and subset manifests from `isign_siglip_slt`.
+Expected layout:
+
+```text
+dataset/iSign/
+├── iSign_v1.1.csv                  captions, from the iSign project page
+├── videos/iSign-videos_v1.1/       one <uid>.mp4 per clip
+└── splits/v1/                      made by step 1 of Run Stage 2
+```
+
+The clip lists are in [`STAGE_2/iSign_Model3_1h/manifests/`](STAGE_2/iSign_Model3_1h/manifests/). They hold clip IDs only.
+
+> **iSign captions must not be published.** This repository contains no per-clip references or predictions, and evaluation files that contain captions are ignored by Git.
 
 ## 4. Requirements
 
@@ -233,7 +244,7 @@ Development used Windows 11 and Python 3.11. Each stage has its own environment,
 
 | Package | Stage 1 main (`env`) | Stage 1 MediaPipe (`env_mediapipe`) | Stage 2 main |
 |---|---|---|---|
-| Python | 3.11 | 3.11 | TODO: confirm |
+| Python | 3.11 | 3.11 | 3.10 |
 | PyTorch | 2.6.0, CUDA 12.4 | Not used | 2.5.1, CUDA 12.4 |
 | Transformers | 4.51.3 | Not used | 4.46.3 |
 | MediaPipe | Not used | 0.10.14 | Separate environment, 0.10.14 |
@@ -252,9 +263,8 @@ These steps set up **Stage 1**. You need [Git](https://git-scm.com/), [Miniconda
 ### 1. Get the code
 
 ```powershell
-# TODO: replace with the repository that contains this code
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/Srinithija/Gloss_free_SLT.git
+cd Gloss_free_SLT
 ```
 
 ### 2. Create the main environment
@@ -361,7 +371,13 @@ The `OLD_MANIFEST` setting on line 9 can stay as it is. It's an optional cross-c
 ├── requirements.txt                  main environment
 ├── requirements-mediapipe.txt        MediaPipe environment
 ├── train_stage1.py, train_stage2.py  training entry points
-└── run_app.py                        launches the older app
+├── run_app.py                        launches the older app
+└── STAGE_2/                          Stage 2 (iSign): see its README
+    ├── iSign_Project_Report.md       full project report
+    ├── iSign_Model3_Experiment_Report.md
+    ├── isign_siglip_slt/             pipeline: model, data, metrics, scripts, configs, tests
+    ├── iSign_Model3_1h/              experiment: configs, clip lists, logs, metrics
+    └── baseline_resnet/isign_opt/    ResNet-18 baseline on iSign
 ```
 
 Generated at run time: `cache/` (features and weights), `outputs/` (Models 1 and 2) and `experiments/prediction_improvement_v1/runs/` (Model 3).
@@ -494,21 +510,71 @@ The ResNet18 baseline is in a separate project, not this folder. It uses an olde
 
 ## 8. Run Stage 2
 
-> [!WARNING]
-> **The commands for this stage can't be listed yet.** The code is in `isign_siglip_slt` and `iSign_Model3_1h` on another computer. The steps below come from the project's Stage 2 report. Add the exact commands from that project before relying on this section.
+All Stage 2 code is in [`STAGE_2/`](STAGE_2/README.md). The commands are for PowerShell on Windows. Checkpoints and feature caches aren't in this repository, so results come from running these steps.
 
-| Step | What it does | Script named in the report | Command |
-|---|---|---|---|
-| 1 | Obtain iSign | Not applicable | TODO |
-| 2 | Audit clips, build the split and flag bad crops | `scripts/audit_data.py` | TODO |
-| 3 | Select 32 motion-aware keyframes | `scripts/select_keyframes.py` | TODO |
-| 4 | Extract frozen SigLIP features | `scripts/extract_visual.py` | TODO |
-| 5 | Extract MediaPipe landmarks and build 204-value features | `scripts/extract_landmarks.py`, `slt/landmarks.py` | TODO |
-| 6 | Load the model | `slt/model.py` | TODO |
-| 7 | Train Model 3 | `scripts/train.py`, `run_train.py` | TODO |
-| 8 | Validate during training | Same as step 7 | TODO |
-| 9 | Evaluate on `test1k` | `eval_test.py` | TODO |
-| 10 | Predict on a new video | Not found in the report | TODO |
+**Set up.** You need Python 3.10. From `STAGE_2\isign_siglip_slt`:
+
+```powershell
+python -m venv envs\main
+envs\main\Scripts\pip install -r requirements_main.txt
+python -m venv envs\mediapipe
+envs\mediapipe\Scripts\pip install -r requirements_mediapipe.txt
+```
+
+Then set your dataset, LMDB and mBART locations in `slt\paths.py`.
+
+**Prepare the data.** Steps 1 and 2 use scripts from the project's baseline repository, [REVETHA/glossfreeslt](https://github.com/REVETHA/glossfreeslt), with its own environment (`assets/requirements.txt`). Clone it as `sltbaselines`, next to `dataset`, and run these from the folder holding both:
+
+```powershell
+git clone https://github.com/REVETHA/glossfreeslt.git sltbaselines
+
+# 1. Build the train, dev and test split, grouped by source video (seed 42)
+python sltbaselines\scripts\create_isign_splits.py
+
+# 2. Store up to 128 evenly spaced frames per clip in LMDB
+python sltbaselines\scripts\prepare_isign_lmdb.py --sampling uniform --max-frames 128 --jpeg-quality 80 --dataset-root dataset\iSign --output-root D:\iSign_LMDB
+```
+
+`scripts\audit_data.py` also reads the trimmed mBART tokenizer that `sltbaselines\scripts\prepare_isign_models.py` prepares.
+
+**Select keyframes and extract features.** From `STAGE_2\isign_siglip_slt`:
+
+```powershell
+# 3. Audit all clips and flag bad crops
+envs\main\Scripts\python.exe scripts\audit_data.py
+
+# 4. Select 32 motion-aware keyframes
+envs\main\Scripts\python.exe scripts\select_keyframes.py
+
+# 5. Frozen SigLIP features: train + dev, then test
+envs\main\Scripts\python.exe scripts\extract_visual.py --manifest ..\iSign_Model3_1h\manifests\trdev_extract.csv --out cache\full_k32\siglip --encoder siglip --positions manifests\keyframes_K32.json
+envs\main\Scripts\python.exe scripts\extract_visual.py --manifest ..\iSign_Model3_1h\manifests\test1k.csv --out ..\iSign_Model3_1h\cache\siglip_test --encoder siglip --positions manifests\keyframes_K32.json
+
+# 6. MediaPipe landmarks: train + dev, then test
+envs\mediapipe\Scripts\python.exe scripts\extract_landmarks.py --manifest ..\iSign_Model3_1h\manifests\trdev_extract.csv --out cache\full_k32\landmarks --workers 14 --positions manifests\keyframes_K32.json --complexity 1
+envs\mediapipe\Scripts\python.exe scripts\extract_landmarks.py --manifest ..\iSign_Model3_1h\manifests\test1k.csv --out ..\iSign_Model3_1h\cache\landmarks_test --workers 14 --positions manifests\keyframes_K32.json --complexity 1
+```
+
+**Train and evaluate.** From `STAGE_2\iSign_Model3_1h`:
+
+```powershell
+$py = "..\isign_siglip_slt\envs\main\Scripts\python.exe"
+
+# 7. Check shapes, loss, gradients and parameter updates on one batch
+& $py sanity_check.py
+
+# 8. Train Model 3, validating every epoch (the SigLIP-only baseline is configs\visual_only_5k.json)
+& $py run_train.py --config configs\m3_hybrid_5k.json
+
+# 9. Evaluate on test1k, greedy and beam-4
+& $py eval_test.py runs\m3_hybrid_5k
+
+# 10. Word-recognition test and log tables
+& $py keyword_probe.py hybrid
+& $py make_logs.py
+```
+
+The original run took about 3,000 of its training clips' features from an earlier cache, re-indexed to the same 32 keyframes. On 297 clips in both caches the landmarks were identical and the SigLIP features differed only by rounding. Step 5 and step 6 produce them all in one pass instead.
 
 **Keyframe selection:** motion energy is measured on 64 × 64 greyscale frames to find the active signing span. Frames are then sampled half by motion and half uniformly.
 
@@ -528,7 +594,7 @@ The ResNet18 baseline is in a separate project, not this folder. It uses an olde
 **Important differences from Stage 1:**
 - There is no E3 ensemble and no sentence list.
 - Model 3 is retrained from scratch on iSign.
-- Landmark features have 204 values, not 233.
+- Landmark features have 204 values, not 233, with a different layout: Stage 2 keeps 25 pose points as xyz and drops body-relative hand points and pose visibility.
 - mBART uses pretrained layers 0, 5 and 11.
 - Environments and library versions differ, so a Stage 1 checkpoint can't be used here.
 
@@ -576,9 +642,13 @@ Output: `<file>` `<predicted sentence>` `(<seconds>s model)`, separated by tabs.
 
 ### Stage 2
 
-The demo doesn't support Stage 2. There is no stage selector, and iSign's Model 3 isn't loaded here.
+The demo doesn't support Stage 2. To predict from the command line, first train a model ([Run Stage 2](#8-run-stage-2)). Then, from `STAGE_2\isign_siglip_slt`:
 
-> **TODO:** add a Stage 2 prediction command from `isign_siglip_slt`, if one exists.
+```powershell
+envs\main\Scripts\python.exe scripts\infer.py --run ..\iSign_Model3_1h\runs\m3_hybrid_5k --video clip.mp4 --decoding '{\"num_beams\":1}'
+```
+
+> **Limitation:** this command uses evenly spaced frames, while the models were trained on motion-aware keyframes, so its results may differ from the reported ones.
 
 ## 10. Metrics and results
 
@@ -615,7 +685,7 @@ E3 also reached 74/94 (78.7%) on validation signer 6, and 211/282 (74.8%) on sig
 
 Exact match was 0%, and 394 of 993 clips shared no words with the reference. The outputs read as fluent English but don't faithfully translate the signs.
 
-> These values come from the project's Stage 2 report. The result files are on another computer, so they still need confirming against the original outputs.
+These values are recorded in [`test_metrics.json`](STAGE_2/iSign_Model3_1h/runs/m3_hybrid_5k/test_metrics.json). The other runs and the epoch-by-epoch logs are in the same folder and in [`logs/project_logs/`](STAGE_2/iSign_Model3_1h/logs/project_logs/).
 
 ### Comparing the stages
 

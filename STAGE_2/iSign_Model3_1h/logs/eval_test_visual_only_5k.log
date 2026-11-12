@@ -1,0 +1,29 @@
+{
+ "run": "visual_only_5k",
+ "best_epoch": 3,
+ "n_test": 993,
+ "test_excluded": 7,
+ "test_loss": 4.936407704367738,
+ "greedy": {
+  "bleu1": 6.8625977149729405,
+  "bleu4": 0.06944284738421327,
+  "rougeL": 6.8853050672096625,
+  "exact_match": 0.0,
+  "distinct_predictions": 23,
+  "most_repeated_share": 0.18429003021148035,
+  "content_word_precision": 0.8482142857142857,
+  "content_word_recall": 0.3463361283266497,
+  "infer_ms_per_video_batched64": 3.213177995019089
+ },
+ "beam4_nr3": {
+  "bleu1": 8.559595029912565,
+  "bleu4": 0.18943714743781329,
+  "rougeL": 7.37284494566984,
+  "exact_match": 0.0,
+  "distinct_predictions": 59,
+  "most_repeated_share": 0.17421953675730112,
+  "content_word_precision": 0.8588957055214724,
+  "content_word_recall": 0.38279256288734964,
+  "infer_ms_per_video_batched64": 28.977451967928946
+ }
+}

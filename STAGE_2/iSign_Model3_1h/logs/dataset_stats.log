@@ -1,0 +1,93 @@
+{
+ "train": {
+  "clips": 101790,
+  "kept": 101347,
+  "cols": [
+   "uid",
+   "text",
+   "source_video_id"
+  ],
+  "mean_words": 10.83,
+  "median": 11,
+  "p90": 18,
+  "max": 59,
+  "len_hist": {
+   "1-3": 8414,
+   "4-8": 27760,
+   "9-15": 45680,
+   "16-25": 19007,
+   "26-999": 486
+  },
+  "distinct_sentences": 98155,
+  "dup_sentence_clips": 4834,
+  "vocab_words": 33329,
+  "top": "[omitted]"
+ },
+ "dev": {
+  "clips": 12724,
+  "kept": 12653,
+  "cols": [
+   "uid",
+   "text",
+   "source_video_id"
+  ],
+  "mean_words": 10.74,
+  "median": 10,
+  "p90": 18,
+  "max": 66,
+  "len_hist": {
+   "1-3": 1115,
+   "4-8": 3505,
+   "9-15": 5692,
+   "16-25": 2276,
+   "26-999": 65
+  },
+  "distinct_sentences": 12445,
+  "dup_sentence_clips": 349,
+  "vocab_words": 11396,
+  "top": "[omitted]"
+ },
+ "test": {
+  "clips": 12723,
+  "kept": 12627,
+  "cols": [
+   "uid",
+   "text",
+   "source_video_id"
+  ],
+  "mean_words": 10.86,
+  "median": 11,
+  "p90": 18,
+  "max": 57,
+  "len_hist": {
+   "1-3": 1097,
+   "4-8": 3425,
+   "9-15": 5611,
+   "16-25": 2428,
+   "26-999": 66
+  },
+  "distinct_sentences": 12416,
+  "dup_sentence_clips": 337,
+  "vocab_words": 11768,
+  "top": "[omitted]"
+ },
+ "test_sentences_seen_in_train_pct": 4.6,
+ "train2k": {
+  "clips": 2000,
+  "mean_words": 9.46,
+  "vocab": 3673,
+  "source_videos": 59
+ },
+ "dev1k": {
+  "clips": 1000,
+  "mean_words": 10.58,
+  "vocab": 3028,
+  "source_videos": 334
+ },
+ "test1k": {
+  "clips": 1000,
+  "mean_words": 10.45,
+  "vocab": 3056,
+  "source_videos": 323
+ }
+}

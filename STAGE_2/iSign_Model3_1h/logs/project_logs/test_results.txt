@@ -1,0 +1,28 @@
+------------------------------------------------------------------------------------------------
+TEST, test1k (993 held-out clips) - Model 3 (SigLIP + MediaPipe), 4,921 train clips, greedy
+TEST : BLEU-1 8.76 | BLEU-4 0.13 | ROUGE-L 8.58 | distinct outputs 181
+------------------------------------------------------------------------------------------------
+
+TEST, test1k (993 held-out clips) - Model 3 (SigLIP + MediaPipe), 4,921 train clips, beam-4, no-repeat-3
+TEST : BLEU-1 6.97 | BLEU-4 0.24 | ROUGE-L 6.73 | distinct outputs 93
+
+TEST, test1k (993 held-out clips) - Visual-only SigLIP baseline, 4,921 train clips, greedy
+TEST : BLEU-1 6.86 | BLEU-4 0.07 | ROUGE-L 6.89 | distinct outputs 23
+
+TEST, test1k (993 held-out clips) - Visual-only SigLIP baseline, 4,921 train clips, beam-4, no-repeat-3
+TEST : BLEU-1 8.56 | BLEU-4 0.19 | ROUGE-L 7.37 | distinct outputs 59
+
+TEST, test1k (993 held-out clips) - Model 3 (SigLIP + MediaPipe), 2,000 train clips, greedy
+TEST : BLEU-1 8.11 | BLEU-4 0.17 | ROUGE-L 9.51 | distinct outputs 40
+
+TEST, test1k (993 held-out clips) - Model 3 (SigLIP + MediaPipe), 2,000 train clips, beam-4, no-repeat-3
+TEST : BLEU-1 3.61 | BLEU-4 0.20 | ROUGE-L 4.46 | distinct outputs 28
+
+TEST, test1k (993 held-out clips) - Visual-only SigLIP baseline, 2,000 train clips, greedy
+TEST : BLEU-1 8.09 | BLEU-4 0.23 | ROUGE-L 8.90 | distinct outputs 33
+
+TEST, test1k (993 held-out clips) - Visual-only SigLIP baseline, 2,000 train clips, beam-4, no-repeat-3
+TEST : BLEU-1 0.90 | BLEU-4 0.06 | ROUGE-L 1.43 | distinct outputs 6
+
+TEST, subset of 1,979 clips (different clips from test1k) - ResNet-18 baseline, about 101k train clips, beam-4, no-repeat-3
+TEST : BLEU-1 9.16 | BLEU-4 0.76 | ROUGE-L 8.16 | distinct outputs 1073

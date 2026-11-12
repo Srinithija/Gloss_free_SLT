@@ -1,0 +1,17 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.5.1+cu124
+torchvision==0.20.1+cu124
+transformers==4.46.3
+tokenizers==0.20.3
+safetensors==0.4.5
+huggingface-hub==0.26.2
+sentencepiece==0.2.0
+protobuf==5.28.3
+sacrebleu==2.4.3
+rouge-score==0.1.2
+lmdb==1.5.1
+opencv-python==4.10.0.84
+numpy==1.26.4
+pandas==2.2.3
+tqdm==4.67.0
+pytest==8.3.3

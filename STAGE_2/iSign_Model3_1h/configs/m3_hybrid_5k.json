@@ -1,0 +1,41 @@
+{
+ "seed": 42,
+ "train_manifest": "manifests/train5k.csv",
+ "dev_manifest": "manifests/dev1k.csv",
+ "T": 32,
+ "frame_keep_min": 0.8,
+ "n_views": 1,
+ "batch_size": 32,
+ "epochs": 12,
+ "patience": 4,
+ "warmup_steps": 300,
+ "num_workers": 2,
+ "n_layers": 3,
+ "vocab": "../isign_siglip_slt/cache/vocab/trimmed_vocab_train.json",
+ "vis_cache_train": [
+  {
+   "root": "../isign_siglip_slt/cache/full_k32/siglip",
+   "kind": "shard"
+  },
+  {
+   "root": "../isign_siglip_slt/cache/pilot/siglip_train",
+   "kind": "positions"
+  }
+ ],
+ "vis_cache_dev": "../isign_siglip_slt/cache/full_k32/siglip",
+ "lm_cache_train": [
+  {
+   "root": "../isign_siglip_slt/cache/full_k32/landmarks",
+   "kind": "shard"
+  },
+  {
+   "root": "../isign_siglip_slt/cache/pilot/landmarks_v1",
+   "kind": "positions"
+  }
+ ],
+ "lm_cache_dev": "../isign_siglip_slt/cache/full_k32/landmarks",
+ "name": "m3_hybrid_5k",
+ "use_visual": true,
+ "use_landmarks": true,
+ "keyframes_json": "../isign_siglip_slt/manifests/keyframes_K32.json"
+}

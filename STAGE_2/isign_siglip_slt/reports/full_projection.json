@@ -1,0 +1,74 @@
+{
+ "all_trimmed_<=116|aug0": {
+  "frames_all": 13509648,
+  "siglip_hours": 11.7,
+  "mediapipe_hours": "37.5-47.5",
+  "disk_visual_GB": 20.8,
+  "disk_landmarks_GB": 7.0,
+  "disk_features_total_GB": 27.7
+ },
+ "all_trimmed_<=116|aug1": {
+  "frames_all": 13509648,
+  "siglip_hours": 21.0,
+  "mediapipe_hours": "37.5-47.5",
+  "disk_visual_GB": 37.2,
+  "disk_landmarks_GB": 7.0,
+  "disk_features_total_GB": 44.2
+ },
+ "all_trimmed_<=116|aug2": {
+  "frames_all": 13509648,
+  "siglip_hours": 30.4,
+  "mediapipe_hours": "37.5-47.5",
+  "disk_visual_GB": 53.7,
+  "disk_landmarks_GB": 7.0,
+  "disk_features_total_GB": 60.7
+ },
+ "T96_positions|aug0": {
+  "frames_all": 11588321,
+  "siglip_hours": 10.1,
+  "mediapipe_hours": "32.2-40.7",
+  "disk_visual_GB": 17.8,
+  "disk_landmarks_GB": 6.0,
+  "disk_features_total_GB": 23.8
+ },
+ "T96_positions|aug1": {
+  "frames_all": 11588321,
+  "siglip_hours": 18.0,
+  "mediapipe_hours": "32.2-40.7",
+  "disk_visual_GB": 31.9,
+  "disk_landmarks_GB": 6.0,
+  "disk_features_total_GB": 37.9
+ },
+ "T96_positions|aug2": {
+  "frames_all": 11588321,
+  "siglip_hours": 26.0,
+  "mediapipe_hours": "32.2-40.7",
+  "disk_visual_GB": 46.1,
+  "disk_landmarks_GB": 6.0,
+  "disk_features_total_GB": 52.0
+ },
+ "T64_positions|aug0": {
+  "frames_all": 8053697,
+  "siglip_hours": 7.0,
+  "mediapipe_hours": "22.4-28.3",
+  "disk_visual_GB": 12.4,
+  "disk_landmarks_GB": 4.2,
+  "disk_features_total_GB": 16.5
+ },
+ "T64_positions|aug1": {
+  "frames_all": 8053697,
+  "siglip_hours": 12.5,
+  "mediapipe_hours": "22.4-28.3",
+  "disk_visual_GB": 22.2,
+  "disk_landmarks_GB": 4.2,
+  "disk_features_total_GB": 26.3
+ },
+ "T64_positions|aug2": {
+  "frames_all": 8053697,
+  "siglip_hours": 18.1,
+  "mediapipe_hours": "22.4-28.3",
+  "disk_visual_GB": 32.0,
+  "disk_landmarks_GB": 4.2,
+  "disk_features_total_GB": 36.2
+ }
+}

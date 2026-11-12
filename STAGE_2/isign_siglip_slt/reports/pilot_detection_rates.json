@@ -1,0 +1,57 @@
+{
+ "300x300 / dev": {
+  "clips": 1674,
+  "frames": 180141,
+  "pose_rate": 0.992,
+  "left_hand_rate": 0.8952,
+  "right_hand_rate": 0.8778,
+  "both_hands_rate": 0.8125,
+  "any_hand_rate": 0.9606,
+  "clips_pose_in_lt_half_frames": 13,
+  "clips_with_no_hand_ever": 2
+ },
+ "300x300 / train": {
+  "clips": 2566,
+  "frames": 276796,
+  "pose_rate": 0.9971,
+  "left_hand_rate": 0.9016,
+  "right_hand_rate": 0.8813,
+  "both_hands_rate": 0.8184,
+  "any_hand_rate": 0.9646,
+  "clips_pose_in_lt_half_frames": 9,
+  "clips_with_no_hand_ever": 1
+ },
+ "large(~650x720) / dev": {
+  "clips": 297,
+  "frames": 28776,
+  "pose_rate": 0.9844,
+  "left_hand_rate": 0.8697,
+  "right_hand_rate": 0.8713,
+  "both_hands_rate": 0.8001,
+  "any_hand_rate": 0.9409,
+  "clips_pose_in_lt_half_frames": 5,
+  "clips_with_no_hand_ever": 0
+ },
+ "large(~650x720) / train": {
+  "clips": 434,
+  "frames": 42028,
+  "pose_rate": 0.979,
+  "left_hand_rate": 0.8788,
+  "right_hand_rate": 0.8754,
+  "both_hands_rate": 0.8163,
+  "any_hand_rate": 0.938,
+  "clips_pose_in_lt_half_frames": 9,
+  "clips_with_no_hand_ever": 2
+ },
+ "small(<256, flagged) / dev": {
+  "clips": 29,
+  "frames": 2410,
+  "pose_rate": 0.3141,
+  "left_hand_rate": 0.1166,
+  "right_hand_rate": 0.117,
+  "both_hands_rate": 0.0763,
+  "any_hand_rate": 0.1573,
+  "clips_pose_in_lt_half_frames": 22,
+  "clips_with_no_hand_ever": 10
+ }
+}

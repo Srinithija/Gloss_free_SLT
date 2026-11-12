@@ -1,0 +1,82 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>iSign Pipeline Flowchart</title>
+<style>
+body { font-family: Segoe UI, Arial, sans-serif; background:#fff; color:#111; margin:24px; }
+h1 { font-size:20px; } h2 { font-size:16px; margin-top:32px; }
+.mermaid { background:#fff; }
+@media print { h2 { page-break-before: always; } h2:first-of-type { page-break-before: avoid; } }
+</style></head><body>
+<h1>Gloss-free ISL → English (iSign) — Model 3 pipeline</h1>
+<h2>Training and testing pipeline</h2>
+<pre class="mermaid">
+flowchart TD
+    S([Start]) --&gt; D1[/&quot;iSign videos (MP4) + split CSVs&lt;br/&gt;uid, text, source_video_id&quot;/]
+
+    subgraph A[&quot;STAGE A — Offline preparation (run once)&quot;]
+        D1 --&gt; A1[&quot;Clean captions&lt;br/&gt;drop empty / placeholder text&quot;]
+        A1 --&gt; A2{&quot;Bad-crop clip&lt;br/&gt;in TRAIN split?&quot;}
+        A2 -- Yes --&gt; A3[&quot;Exclude from training&quot;]
+        A2 -- No --&gt; A4[&quot;Group split by source video&lt;br/&gt;train / dev / test manifests&quot;]
+        A3 --&gt; A4
+        A4 --&gt; A5[&quot;Decode frames → LMDB&lt;br/&gt;≤128 frames, 256×256&quot;]
+        A5 --&gt; A6[&quot;Motion-aware keyframe selection&lt;br/&gt;K = 32 frames, chronological&quot;]
+        A6 --&gt; A7[&quot;Frozen SigLIP ViT-B/16 (GPU)&lt;br/&gt;224×224, fp16, no_grad → 768-d / frame&quot;]
+        A6 --&gt; A8[&quot;MediaPipe Holistic (CPU)&lt;br/&gt;original resolution → pose + hands&quot;]
+        A7 --&gt; A9[(&quot;Feature caches&lt;br/&gt;memory-mapped shards&quot;)]
+        A8 --&gt; A9
+        A4 --&gt; A10[&quot;Trimmed mBART vocabulary&lt;br/&gt;from train captions → 19,551 tokens&quot;]
+    end
+
+    A9 --&gt; B0
+    A10 --&gt; B0
+
+    subgraph B[&quot;STAGE B — Training (train + dev only)&quot;]
+        B0[&quot;Build model: fusion + temporal encoder&lt;br/&gt;+ mBART 3+3 (pretrained layers 0/5/11)&quot;] --&gt; B1[&quot;Sanity check: shapes, loss,&lt;br/&gt;gradients, parameter updates&quot;]
+        B1 --&gt; B2{&quot;All checks&lt;br/&gt;passed?&quot;}
+        B2 -- No --&gt; B3[&quot;Fix data / mask / loss bug&quot;] --&gt; B1
+        B2 -- Yes --&gt; B4[&quot;Load batch of 32 clips&lt;br/&gt;landmarks → 204-d, random offset,&lt;br/&gt;keep 80–100 % frames&quot;]
+        B4 --&gt; B5[&quot;Fuse: SigLIP 768 ‖ LM-proj 256 = 1024&lt;br/&gt;Conv1D k5 + BN + ReLU + MaxPool 2&lt;br/&gt;Linear + LayerNorm + ReLU&quot;]
+        B5 --&gt; B6[&quot;mBART encoder → decoder&lt;br/&gt;teacher forcing, start token en_XX&quot;]
+        B6 --&gt; B7[&quot;Cross-entropy loss&lt;br/&gt;label smoothing 0.1, ignore padding&quot;]
+        B7 --&gt; B8[&quot;Backprop → clip grad 1.0&lt;br/&gt;→ AdamW → LR scheduler&quot;]
+        B8 --&gt; B9{&quot;End of&lt;br/&gt;epoch?&quot;}
+        B9 -- No --&gt; B4
+        B9 -- Yes --&gt; B10[&quot;Validate on dev1k:&lt;br/&gt;val loss + greedy decode&lt;br/&gt;BLEU-1/4, ROUGE-L&quot;]
+        B10 --&gt; B11{&quot;Dev BLEU-4&lt;br/&gt;improved?&quot;}
+        B11 -- Yes --&gt; B12[&quot;Save best.pt (SHA-256)&quot;] --&gt; B13
+        B11 -- No --&gt; B13[&quot;Save last.pt&quot;]
+        B13 --&gt; B14{&quot;4 epochs without&lt;br/&gt;improvement or&lt;br/&gt;max epochs?&quot;}
+        B14 -- No --&gt; B4
+    end
+
+    B14 -- Yes --&gt; C0
+
+    subgraph C[&quot;STAGE C — Testing (held-out test1k, once per model)&quot;]
+        C0[&quot;Load best.pt, eval mode&quot;] --&gt; C1[&quot;Load test features&lt;br/&gt;(same keyframes + encoders)&lt;br/&gt;fixed positions, no augmentation&quot;]
+        C1 --&gt; C2[&quot;Compute test loss&quot;]
+        C2 --&gt; C3[&quot;Autoregressive decoding&lt;br/&gt;greedy and beam-4 (no-repeat-3)&quot;]
+        C3 --&gt; C4[&quot;Detokenise → English sentence&quot;]
+        C4 --&gt; C5[&quot;Normalise text&lt;br/&gt;lowercase, strip punctuation&quot;]
+        C5 --&gt; C6[&quot;Metrics: Exact Match, BLEU-1/4,&lt;br/&gt;ROUGE-L, chrF, distinct outputs,&lt;br/&gt;content-word P/R, ms per video&quot;]
+        C6 --&gt; C7[/&quot;test_metrics.json&lt;br/&gt;+ predictions .tsv&quot;/]
+        A9 --&gt; C8[&quot;Key-word probe:&lt;br/&gt;pooled features → MLP over&lt;br/&gt;300 content words → per-word AUC&quot;]
+        C8 --&gt; C7
+    end
+
+    C7 --&gt; E([End: report and comparison])
+</pre>
+<h2>Inference on a new video</h2>
+<pre class="mermaid">
+flowchart LR
+    V[/&quot;New ISL video (MP4)&quot;/] --&gt; F[&quot;Sample ≤128 frames&lt;br/&gt;resize 256×256&quot;]
+    F --&gt; K[&quot;Keyframe selection&lt;br/&gt;K = 32&quot;]
+    K --&gt; S1[&quot;Frozen SigLIP&lt;br/&gt;768-d / frame&quot;]
+    K --&gt; M1[&quot;MediaPipe Holistic&lt;br/&gt;204-d / frame&quot;]
+    S1 --&gt; FU[&quot;Fusion 1024-d&lt;br/&gt;+ temporal encoder&quot;]
+    M1 --&gt; FU
+    FU --&gt; MB[&quot;mBART encoder–decoder&lt;br/&gt;beam / greedy search&quot;]
+    MB --&gt; T[/&quot;English sentence&quot;/]
+</pre>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true, theme: "default", flowchart: { htmlLabels: true, curve: "basis" } });</script>
+</body></html>
